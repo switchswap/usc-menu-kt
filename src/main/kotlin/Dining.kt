@@ -1,9 +1,9 @@
-import com.sun.javaws.exceptions.InvalidArgumentException
 import models.DiningHallType
 import models.DiningMenu
 import models.HallMenu
 import parser.MenuParser
 import java.io.IOException
+import java.lang.IllegalArgumentException
 import java.util.*
 
 /**
@@ -15,12 +15,12 @@ class Dining {
         val menuParser: MenuParser = MenuParser()
     }
 
-    @Throws(IOException::class, InvalidArgumentException::class)
+    @Throws(IOException::class, IllegalArgumentException::class)
     fun getDiningMenu(date: Date): DiningMenu {
         return menuParser.getDiningMenu(date)
     }
 
-    @Throws(IOException::class, InvalidArgumentException::class)
+    @Throws(IOException::class, IllegalArgumentException::class)
     fun getHallMenu(diningHall: DiningHallType, date: Date): HallMenu {
         val diningMenu = menuParser.getDiningMenu(date)
         return when (diningHall) {
