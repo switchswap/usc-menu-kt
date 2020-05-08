@@ -10,7 +10,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashSet
 
-/* Class for grabbing and parsing meal data */
+/**
+ *  Class for grabbing and parsing meal data
+ */
 class MenuParser {
     /**
      * Scrapes menu data from website and builds [DiningMenu]
@@ -25,6 +27,11 @@ class MenuParser {
         return parseMenu(menuHTML, date)
     }
 
+    /**
+     * Build URL given a date
+     * @param date to build for
+     * @return URL string of menu page
+     */
     private fun buildUrl(date: Date): String{
         // Format date
         var dateString: String = SimpleDateFormat("MM/dd/yyyy").format(date)
@@ -35,7 +42,11 @@ class MenuParser {
         return "https://hospitality.usc.edu/residential-dining-menus/?menu_date=$dateString"
     }
 
-    // Fetch menu HTML from url
+    /**
+     * Fetches menu HTML for a given date
+     * @param date The date to fetch for
+     * @throws IOException If there is an error in fetching the HTML
+     */
     @Throws(IOException::class)
     private fun fetchMenu(date: Date) : Document {
         // Fetch menu html
@@ -43,9 +54,15 @@ class MenuParser {
         return Jsoup.connect(url).get()
     }
 
-    // Parse menu HTML into models.MenuItem objects
+    /**
+     * Parses menu HTML into [DiningMenu] object
+     * @param menuHTML HTML of page to parse
+     * @param date Date of menu
+     * @throws IllegalArgumentException If the parser receives any invalid data
+     */
+    @Throws(IOException::class, InvalidHallTypeException::class, InvalidItemTypeException::class)
     private fun parseMenu(menuHTML: Document, date: Date): DiningMenu {
-        val diningMenu : DiningMenu = DiningMenu(date)
+        val diningMenu = DiningMenu(date)
 
         // Get the meal types (Breakfast, Brunch, Lunch, and Dinner)
         val itemTypeElements = menuHTML.select("div.hsp-accordian-container")
@@ -88,6 +105,8 @@ class MenuParser {
                             allergens.add(menuItemAllergenElement.text().toLowerCase())
                         }
 
+                        // This will always be true since the functions either return or throw an exception
+                        // Leaving this in if I decide to change the underlying implementation later
                         if (itemType != null && diningHallType != null) {
                             // Item complete
                             val menuItem = MenuItem(itemName, allergens, itemType, itemCategory)
