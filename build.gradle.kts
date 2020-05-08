@@ -15,6 +15,8 @@ plugins {
     `java-library`
 }
 
+group = "me.switchswap"
+version = "0.0.1"
 
 tasks.dokka {
     outputFormat = "html"
