@@ -1,5 +1,7 @@
 package parser
 
+import exceptions.InvalidHallTypeException
+import exceptions.InvalidItemTypeException
 import models.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -98,22 +100,25 @@ class MenuParser {
         return diningMenu
     }
 
-    private fun getItemType(str: String) : ItemType? {
+    // TODO: There has to be an existing enum function that trivializes this.
+    @Throws(InvalidItemTypeException::class)
+    private fun getItemType(type: String) : ItemType {
         return when {
-            str.contains("breakfast") -> ItemType.BREAKFAST
-            str.contains("brunch") -> ItemType.BRUNCH
-            str.contains("lunch") -> ItemType.LUNCH
-            str.contains("dinner") -> ItemType.DINNER
-            else -> null
+            type.contains("breakfast") -> ItemType.BREAKFAST
+            type.contains("brunch") -> ItemType.BRUNCH
+            type.contains("lunch") -> ItemType.LUNCH
+            type.contains("dinner") -> ItemType.DINNER
+            else -> throw InvalidItemTypeException("Invalid ItemType \"$type\"!")
         }
     }
 
-    private fun getDiningHallType(str: String) : DiningHallType? {
+    @Throws(InvalidHallTypeException::class)
+    private fun getDiningHallType(type: String) : DiningHallType {
         return when {
-            str.contains("everybody's kitchen") -> models.DiningHallType.EVK
-            str.contains("parkside restaurant & grill") -> models.DiningHallType.PARKSIDE
-            str.contains("usc village dining hall") -> models.DiningHallType.VILLAGE
-            else -> null
+            type.contains("everybody's kitchen") -> models.DiningHallType.EVK
+            type.contains("parkside restaurant & grill") -> models.DiningHallType.PARKSIDE
+            type.contains("usc village dining hall") -> models.DiningHallType.VILLAGE
+            else -> throw InvalidHallTypeException("Invalid DiningHallType \"$type\"!")
         }
     }
 }
