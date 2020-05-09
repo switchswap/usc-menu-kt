@@ -1,5 +1,5 @@
 # USC-Menu-kt
-A USC Dining Hall Menu API Wrapper for Kotlin!
+A USC Dining Hall Menu API for Kotlin!
 
 Wow, that's a lot to say!
 
