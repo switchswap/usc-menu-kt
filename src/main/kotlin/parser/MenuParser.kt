@@ -11,11 +11,12 @@ import java.util.*
 import kotlin.collections.HashSet
 
 /**
- *  Class for grabbing and parsing meal data
+ *  This class is for grabbing and parsing meal data
  */
 class MenuParser {
     /**
      * Scrapes menu data from website and builds [DiningMenu]
+     *
      * @param date specifies which day's menu data to return
      * @return [DiningMenu]
      * @throws IOException if there's an error in fetching the menu HTML
@@ -29,6 +30,7 @@ class MenuParser {
 
     /**
      * Build URL given a date
+     *
      * @param date to build for
      * @return URL string of menu page
      */
@@ -44,6 +46,7 @@ class MenuParser {
 
     /**
      * Fetches menu HTML for a given date
+     *
      * @param date The date to fetch for
      * @throws IOException If there is an error in fetching the HTML
      */
@@ -56,6 +59,7 @@ class MenuParser {
 
     /**
      * Parses menu HTML into [DiningMenu] object
+     *
      * @param menuHTML HTML of page to parse
      * @param date Date of menu
      * @throws IllegalArgumentException If the parser receives any invalid data
@@ -119,6 +123,11 @@ class MenuParser {
         return diningMenu
     }
 
+    /**
+     * Get the [ItemType] enum from a string
+     *
+     * @param type The string to parse
+     */
     // TODO: There has to be an existing enum function that trivializes this.
     @Throws(InvalidItemTypeException::class)
     private fun getItemType(type: String) : ItemType {
@@ -131,6 +140,11 @@ class MenuParser {
         }
     }
 
+    /**
+     * Get the [DiningHallType] enum from a string
+     *
+     * @param type The string to parse
+     */
     @Throws(InvalidHallTypeException::class)
     private fun getDiningHallType(type: String) : DiningHallType {
         return when {
