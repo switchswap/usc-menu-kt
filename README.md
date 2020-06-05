@@ -25,7 +25,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation 'com.github.switchswap:usc-menu-kt:0.0.1'
+    implementation 'com.github.switchswap:usc-menu-kt:v1.0.0'
 }
 ```
 </details>
@@ -49,7 +49,7 @@ dependencies {
 <dependency>
     <groupId>com.github.switchswap</groupId>
     <artifactId>usc-menu-kt</artifactId>
-    <version>0.0.1</version>
+    <version>v1.0.0</version>
 </dependency>
 ```
 </details>
