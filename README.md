@@ -71,7 +71,6 @@ var diningMenu = dining.getDiningMenu(date) // Return full dining hall menu obje
 for (menuItem in diningMenu.parkside.breakfast) {
     // MenuItems are stored as a HashMap with name as the key and the object as the value
     // This is for fast lookups of items
-    print(menuItem.value.itemName) // Here we reference the name from object instead of just using the key
+    println(menuItem.value.itemName) // Here we reference the name from object instead of just using the key
 }
-
 ```
