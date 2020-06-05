@@ -20,7 +20,7 @@ plugins {
 }
 
 group = "me.switchswap"
-version = "0.0.1"
+version = "1.0.0"
 
 tasks.dokka {
     outputFormat = "html"
