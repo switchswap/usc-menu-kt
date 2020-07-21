@@ -1,4 +1,4 @@
-package models
+package me.switchswap.diningmenu.models
 
 import java.util.*
 import kotlin.collections.HashMap

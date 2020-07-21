@@ -1,8 +1,8 @@
-package parser
+package me.switchswap.diningmenu.parser
 
-import exceptions.InvalidHallTypeException
-import exceptions.InvalidItemTypeException
-import models.*
+import me.switchswap.diningmenu.exceptions.InvalidHallTypeException
+import me.switchswap.diningmenu.exceptions.InvalidItemTypeException
+import me.switchswap.diningmenu.models.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
@@ -62,7 +62,7 @@ class MenuParser {
      *
      * @param menuHTML HTML of page to parse
      * @param date Date of menu
-     * @throws IllegalArgumentException If the parser receives any invalid data
+     * @throws IllegalArgumentException If the me.switchswap.diningmenu.parser receives any invalid data
      */
     @Throws(IOException::class, InvalidHallTypeException::class, InvalidItemTypeException::class)
     private fun parseMenu(menuHTML: Document, date: Date): DiningMenu {
@@ -148,9 +148,9 @@ class MenuParser {
     @Throws(InvalidHallTypeException::class)
     private fun getDiningHallType(type: String) : DiningHallType {
         return when {
-            type.contains("everybody's kitchen") -> models.DiningHallType.EVK
-            type.contains("parkside restaurant & grill") -> models.DiningHallType.PARKSIDE
-            type.contains("usc village dining hall") -> models.DiningHallType.VILLAGE
+            type.contains("everybody's kitchen") -> me.switchswap.diningmenu.models.DiningHallType.EVK
+            type.contains("parkside restaurant & grill") -> me.switchswap.diningmenu.models.DiningHallType.PARKSIDE
+            type.contains("usc village dining hall") -> me.switchswap.diningmenu.models.DiningHallType.VILLAGE
             else -> throw InvalidHallTypeException("Invalid DiningHallType \"$type\"!")
         }
     }

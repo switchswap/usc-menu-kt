@@ -1,4 +1,4 @@
-package models
+package me.switchswap.diningmenu.models
 
 /**
  * This class represents the type of an item

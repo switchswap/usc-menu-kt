@@ -1,4 +1,4 @@
-package models
+package me.switchswap.diningmenu.models
 
 /**
  *  This class represents a singular menu item

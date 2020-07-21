@@ -1,7 +1,9 @@
-import models.DiningHallType
-import models.DiningMenu
-import models.HallMenu
-import parser.MenuParser
+package me.switchswap.diningmenu
+
+import me.switchswap.diningmenu.models.DiningHallType
+import me.switchswap.diningmenu.models.DiningMenu
+import me.switchswap.diningmenu.models.HallMenu
+import me.switchswap.diningmenu.parser.MenuParser
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.util.*

@@ -1,4 +1,4 @@
-package models
+package me.switchswap.diningmenu.models
 
 /**
  * This class is used to represent the name of a dining hall
