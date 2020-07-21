@@ -128,7 +128,6 @@ class MenuParser {
      *
      * @param type The string to parse
      */
-    // TODO: There has to be an existing enum function that trivializes this.
     @Throws(InvalidItemTypeException::class)
     private fun getItemType(type: String) : ItemType {
         return when {
@@ -148,9 +147,9 @@ class MenuParser {
     @Throws(InvalidHallTypeException::class)
     private fun getDiningHallType(type: String) : DiningHallType {
         return when {
-            type.contains("everybody's kitchen") -> me.switchswap.diningmenu.models.DiningHallType.EVK
-            type.contains("parkside restaurant & grill") -> me.switchswap.diningmenu.models.DiningHallType.PARKSIDE
-            type.contains("usc village dining hall") -> me.switchswap.diningmenu.models.DiningHallType.VILLAGE
+            type.contains("everybody's kitchen") -> DiningHallType.EVK
+            type.contains("parkside restaurant & grill") -> DiningHallType.PARKSIDE
+            type.contains("usc village dining hall") -> DiningHallType.VILLAGE
             else -> throw InvalidHallTypeException("Invalid DiningHallType \"$type\"!")
         }
     }
