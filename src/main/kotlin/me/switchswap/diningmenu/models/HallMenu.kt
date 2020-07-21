@@ -9,10 +9,10 @@ import kotlin.collections.HashMap
 data class HallMenu(val date: Date, val hallType: DiningHallType,
                     val menus: HashMap<String, HashMap<String, MenuItem>> = HashMap()) {
 
-    val breakfast: HashMap<String, MenuItem> = menus.getOrPut(ItemType.BREAKFAST.typeName) { HashMap() }
-    val brunch: HashMap<String, MenuItem> = menus.getOrPut(ItemType.BRUNCH.typeName) { HashMap() }
-    val lunch: HashMap<String, MenuItem> = menus.getOrPut(ItemType.LUNCH.typeName) { HashMap() }
-    val dinner: HashMap<String, MenuItem> = menus.getOrPut(ItemType.DINNER.typeName) { HashMap() }
+    val breakfast: HashMap<String, MenuItem> = menus.getOrPut(ItemType.BREAKFAST.name) { HashMap() }
+    val brunch: HashMap<String, MenuItem> = menus.getOrPut(ItemType.BRUNCH.name) { HashMap() }
+    val lunch: HashMap<String, MenuItem> = menus.getOrPut(ItemType.LUNCH.name) { HashMap() }
+    val dinner: HashMap<String, MenuItem> = menus.getOrPut(ItemType.DINNER.name) { HashMap() }
 
     fun hasBreakfast(): Boolean {
         return breakfast.isNotEmpty()
