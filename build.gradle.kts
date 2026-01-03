@@ -3,10 +3,10 @@ plugins {
     java
 
     // Apply the maven publish plugin
-    id("maven-publish")
+    `maven-publish`
 
     // Apply the Kotlin JVM plugin to add support for Kotlin.
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "2.3.0"
     kotlin("plugin.serialization") version "2.3.0"
 
     // Apply Dokka plugin for documentation
@@ -40,5 +40,13 @@ tasks.named<Test>("test") {
 
     testLogging {
         events("passed")
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
     }
 }
