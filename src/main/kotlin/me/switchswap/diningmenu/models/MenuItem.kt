@@ -1,26 +1,17 @@
 package me.switchswap.diningmenu.models
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
 /**
- *  This class represents a singular menu item
+ *  This class represents a singular menu item from the dining hall API.
  */
-data class MenuItem (val itemName: String,
-                     val allergens: HashSet<String>,
-                     val itemType: ItemType,
-                     val itemCategory: String) {
-
-    /**
-     * Check if item has a given allergen
-     *
-     * @param allergen The allergen to check for
-     */
-    fun hasAllergen(allergen: String): Boolean {
-        return allergen in allergens
-    }
-
-    /**
-     * Get all the allergens as a string
-     */
-    fun getAllergenString(): String {
-        return allergens.joinToString(separator = ", ")
-    }
-}
+@Serializable
+data class MenuItem(
+    @SerialName("item")
+    val name: String,
+    val allergens: Set<String>,
+    @SerialName("dietary_preferences")
+    val dietaryPreferences: Set<String>,
+    val preferences: Set<String>
+)

@@ -1,52 +1,21 @@
 package me.switchswap.diningmenu.models
 
-import java.util.*
-import kotlin.collections.HashMap
+import kotlinx.datetime.LocalDate
+import kotlinx.serialization.Serializable
+import me.switchswap.diningmenu.parser.LocalDateSerializer
 
 /**
- * This class represents a dining hall menu
+ * Data class representing a dining hall menu.
  */
-data class HallMenu(val date: Date, val hallType: DiningHallType,
-                    val menus: HashMap<String, HashMap<String, MenuItem>> = HashMap()) {
-
-    val breakfast: HashMap<String, MenuItem> = menus.getOrPut(ItemType.BREAKFAST.name) { HashMap() }
-    val brunch: HashMap<String, MenuItem> = menus.getOrPut(ItemType.BRUNCH.name) { HashMap() }
-    val lunch: HashMap<String, MenuItem> = menus.getOrPut(ItemType.LUNCH.name) { HashMap() }
-    val dinner: HashMap<String, MenuItem> = menus.getOrPut(ItemType.DINNER.name) { HashMap() }
-
-    fun hasBreakfast(): Boolean {
-        return breakfast.isNotEmpty()
-    }
-
-    fun hasBrunch(): Boolean {
-        return brunch.isNotEmpty()
-    }
-
-    fun hasLunch(): Boolean {
-        return lunch.isNotEmpty()
-    }
-
-    fun hasDinner(): Boolean {
-        return dinner.isNotEmpty()
-    }
-
-    fun isClosed(): Boolean {
-        return breakfast.isEmpty() && brunch.isEmpty() && lunch.isEmpty() && dinner.isEmpty()
-    }
-
+@Serializable
+data class HallMenu(
+    @Serializable(with = LocalDateSerializer::class)
+    val date: LocalDate,
+    val location: DiningHallType,
+    val meals: List<Meal>
+) {
     /**
-     * Add item to dining hall menu
-     *
-     * @param menuItem The [MenuItem] to add
-     * @param itemType The [ItemType] of the item
+     * Checks if the menu includes a brunch with at least one station.
      */
-    fun addItem(menuItem: MenuItem, itemType: ItemType) {
-        val itemName: String = menuItem.itemName.toLowerCase()
-        when (itemType) {
-            ItemType.BREAKFAST -> breakfast[itemName] = menuItem
-            ItemType.BRUNCH -> brunch[itemName] = menuItem
-            ItemType.LUNCH -> lunch[itemName] = menuItem
-            ItemType.DINNER -> dinner[itemName] = menuItem
-        }
-    }
+    fun hasBrunch(): Boolean = meals.any { it.name == MealType.BRUNCH && it.stations.isNotEmpty() }
 }
