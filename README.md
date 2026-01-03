@@ -10,13 +10,14 @@ Wow, that's a lot to say!
 <details>
 <summary>Gradle</summary>
 
-1. Add this to your root `build.gradle` at the end of repositories
+1. Add this in your settings.gradle.kts at the end of repositories
 
 ```kotlin
-allprojects {
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        ...
-        maven { url 'https://jitpack.io' }
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 ```
@@ -25,7 +26,7 @@ allprojects {
 
 ```kotlin
 dependencies {
-    implementation 'com.github.switchswap:usc-menu-kt:v1.0.0'
+    implementation("com.github.switchswap:usc-menu-kt:v3.0.0")
 }
 ```
 </details>
@@ -49,28 +50,49 @@ dependencies {
 <dependency>
     <groupId>com.github.switchswap</groupId>
     <artifactId>usc-menu-kt</artifactId>
-    <version>v1.0.0</version>
+    <version>v3.0.0</version>
 </dependency>
 ```
 </details>
 
 ## Usage
+The API has been updated to use `kotlinx.datetime.LocalDate` and now fetches a menu for a specific dining hall, mirroring the USC Hospitality API.
+
 ```kotlin
 // Create API object
 val dining = Dining()
 
 // Generate a date object
-val simpleDateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
-val dateString = "02/21/2020"
-var date: Date = simpleDateFormat.parse(dateString)
+val date = LocalDate(2025, 12, 3)
 
-// Pass into function
-var diningMenu = dining.getDiningMenu(date) // Return full dining hall menu object
+// Pass the dining hall and date into the function
+val hallMenu = dining.getHallMenu(DiningHallType.PARKSIDE, date) 
 
-// Print all breakfast items at Parkside dining hall for the given date
-for (menuItem in diningMenu.parkside.breakfast) {
-    // MenuItems are stored as a HashMap with name as the key and the object as the value
-    // This is for fast lookups of items
-    println(menuItem.value.itemName) // Here we reference the name from object instead of just using the key
+// The returned HallMenu object contains a list of meals.
+// Each meal contains a list of stations, which in turn contains a list of menu items.
+// Let's print all items for all meals at Parkside for the given date:
+hallMenu.meals.forEach { meal ->
+    println("--- ${meal.name} ---")
+    meal.stations.forEach { station ->
+        println("  -- ${station.name} --")
+        station.menu.forEach { menuItem ->
+            println("    - ${menuItem.name}")
+        }
+    }
 }
+//Ouput:
+//--- BREAKFAST ---
+//    -- Hot Line --
+//        - MADE TO ORDER OMELETES
+//        - S'mores French Toast Bake
+//        - Soyrizo, Spinach and Vegan Cheese Quesadilla
+//        - Scrambled Eggs
+//        - Bacon
+//        - Boiled Eggs
+//        - Triangle Hash Browns
+//        - Chicken Andouille Sausage
+//    -- Fresh from the Farm --
+//        - Plain Greek Yogurt
+//        - Strawberry Yogurt
+//        ...
 ```
